@@ -1,0 +1,34 @@
+---
+ssh: ascross
+runpath: true
+
+package: zsh
+name: Zsh
+version: 5.2.0-r2
+architecture: ""
+firmware: 2.6.0
+
+config:
+  general:
+    developer: "Zsh Workers"
+    website: "http://www.zsh.org"
+    maintainer: "mafredri"
+    email: "mafredri+adm@gmail.com"
+    depends: []
+    conflicts: []
+    package: "PACKAGE"
+    name: "NAME"
+    version: "VERSION"
+    architecture: "ARCHITECTURE"
+    firmware: "FIRMWARE"
+  register:
+    symbolic-link:
+      /bin:
+        - "zsh"
+    boot-priority:
+      start-order: 1
+      stop-order: 99
+
+files:
+  - /usr/local/AppCentral/zsh
+  - /lib/libncursesw.so.6*

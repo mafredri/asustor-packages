@@ -1,0 +1,2 @@
+asustor/zsh-5.2
+sys-libs/ncurses-6.0-r1
