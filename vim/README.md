@@ -13,3 +13,13 @@ Despite what the above comic suggests, Vim can be configured to work in a very s
 
 * Vim isn't an editor designed to hold its users' hands. It is a tool, the use of which must be learned.
 * Vim isn't a word processor. Although it can display text with various forms of highlighting and formatting, it isn't there to provide WYSIWYG editing of typeset documents. (It is great for editing TeX, though.)
+
+## Tips
+
+I had to add the following to my `.vimrc` to prevent the arrow keys from typing `A`, `B`, `C`, `D` in the editor:
+
+Contents of `$HOME/.vimrc`:
+
+```vimrc
+set term=xterm
+```

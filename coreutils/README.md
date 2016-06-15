@@ -6,9 +6,13 @@ This is port of Coreutils for Asustor ADM.
 
 Standard GNU file utilities (chmod, cp, dd, dir, ls...), text utilities (sort, tr, head, wc..), and shell utilities (whoami, who,...)
 
-In this release all commands are prefixed with g, (gchmod, gcp, gdd, gdir, gls...) so that they do not conflict with the system binaries. To use them as the defaults in your shell, you can add the gnubin to your path like so:
+In this release all commands are prefixed with g, (gchmod, gcp, gdd, gdir, gls...) so that they do not conflict with the system binaries.
 
-```
+## Tips
+
+To use the coreutils commands without the `g`-prefix, by default, you can add the gnubin to your path like so:
+
+```shell
 PATH=/usr/local/AppCentral/coreutils/libexec/gnubin:$PATH
 ```
 
