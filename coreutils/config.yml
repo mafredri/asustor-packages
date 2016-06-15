@@ -1,0 +1,33 @@
+---
+ssh: ascross
+runpath: false
+
+package: coreutils
+name: Coreutils
+version: 8.25.0
+architecture: ""
+firmware: 2.6.0
+
+config:
+  general:
+    developer: "Free Software Foundation"
+    website: "https://www.gnu.org/software/coreutils/coreutils.html"
+    maintainer: "mafredri"
+    email: "mafredri+adm@gmail.com"
+    depends: []
+    conflicts: []
+    package: "PACKAGE"
+    name: "NAME"
+    version: "VERSION"
+    architecture: "ARCHITECTURE"
+    firmware: "FIRMWARE"
+  register:
+    symbolic-link:
+      /bin:
+        - "g*"
+    boot-priority:
+      start-order: 1
+      stop-order: 99
+
+files:
+  - /usr/local/AppCentral/coreutils
