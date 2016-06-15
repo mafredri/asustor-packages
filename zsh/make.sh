@@ -43,8 +43,6 @@ build_arch() {
 
 	(( ${#config_files} )) && files+=( $prefix$^config_files )
 
-	print "$files"
-
 	if (( ! ${#files} )); then
 		log "No files found? Aborting..."
 		continue
@@ -52,9 +50,11 @@ build_arch() {
 
 	write_pkgversions $ssh_host $prefix "$files" pkgversions/$arch.txt &
 
-	log "Updating runpath on remote..."
-	patched_files=$(update_runpath $ssh_host $prefix /usr/local/AppCentral/$config_package/lib "$files")
-	log "Patched runpath for: $patched_files"
+	if [[ $config_runpath == True ]]; then
+		log "Updating runpath on remote..."
+		patched_files=$(update_runpath $ssh_host $prefix /usr/local/AppCentral/$config_package/lib "$files")
+		log "Patched runpath for: $patched_files"
+	fi
 
 	log "Rsyncing files..."
 	rsync -q -a --relative --delete --exclude '*.py[cdo]' \

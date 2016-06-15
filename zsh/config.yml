@@ -4,7 +4,7 @@ runpath: true
 
 package: zsh
 name: Zsh
-version: 5.2.0-r2
+version: 5.2.0
 architecture: ""
 firmware: 2.6.0
 
@@ -24,7 +24,7 @@ config:
   register:
     symbolic-link:
       /bin:
-        - "zsh"
+        - "zsh*"
     boot-priority:
       start-order: 1
       stop-order: 99
