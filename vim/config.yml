@@ -1,0 +1,41 @@
+---
+ssh: ascross
+runpath: true
+
+package: vim
+name: Vim
+version: 7.4.1821
+architecture: ""
+firmware: 2.6.0
+
+config:
+  general:
+    developer: "Vim"
+    website: "http://www.vim.org"
+    maintainer: "mafredri"
+    email: "mafredri+adm@gmail.com"
+    depends: []
+    conflicts: []
+    package: "PACKAGE"
+    name: "NAME"
+    version: "VERSION"
+    architecture: "ARCHITECTURE"
+    firmware: "FIRMWARE"
+  register:
+    symbolic-link:
+      /bin:
+        - "rview"
+        - "rvim"
+        - "vim"
+        - "vimdiff"
+    boot-priority:
+      start-order: 1
+      stop-order: 99
+
+files:
+  - /usr/bin/rview
+  - /usr/bin/rvim
+  - /usr/bin/vim
+  - /usr/bin/vimdiff
+  - /lib/libncurses.so*
+

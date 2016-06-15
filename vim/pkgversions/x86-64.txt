@@ -1,0 +1,2 @@
+app-editors/vim-7.4.1821
+sys-libs/ncurses-6.0-r1
