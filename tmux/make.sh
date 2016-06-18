@@ -39,7 +39,7 @@ build_arch() {
 	log "Copying APK skeleton"
 	rsync -a source/ $build_apk/$arch
 
-	typeset -a files
+	typeset -a files exclude
 
 	(( ${#config_files} )) && files+=( $prefix$^config_files )
 
