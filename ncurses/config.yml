@@ -1,0 +1,38 @@
+---
+ssh: ascross
+
+package: ncurses
+name: ncurses
+version: 6.0.0
+architecture: ""
+firmware: 2.6.0
+
+config:
+  general:
+    developer: "GNU Project"
+    website: "https://www.gnu.org/software/ncurses/ncurses.html"
+    maintainer: "mafredri"
+    email: "mafredri+adm@gmail.com"
+    depends: []
+    conflicts: []
+    package: "PACKAGE"
+    name: "NAME"
+    version: "VERSION"
+    architecture: "ARCHITECTURE"
+    firmware: "FIRMWARE"
+  register:
+    boot-priority:
+      start-order: 1
+      stop-order: 99
+
+root: /usr/local/AppCentral/ncurses
+runpath: /usr/local/AppCentral/ncurses/lib:/usr/local/AppCentral/ncurses/usr/lib
+files:
+  - /usr/local/AppCentral/ncurses/etc/terminfo
+  - /usr/local/AppCentral/ncurses/lib*
+  - /usr/local/AppCentral/ncurses/usr
+exclude:
+  - "*/usr/local/AppCentral/ncurses/usr/bin/ncurses*config"
+  - "*/usr/local/AppCentral/ncurses/usr/include"
+  - "*/usr/local/AppCentral/ncurses/usr/lib*/pkgconfig"
+  - "*/usr/local/AppCentral/ncurses/tmp"

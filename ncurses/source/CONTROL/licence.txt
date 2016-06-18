@@ -1,0 +1,1 @@
+See: http://invisible-island.net/ncurses/ncurses-license.html
