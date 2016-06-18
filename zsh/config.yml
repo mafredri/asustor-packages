@@ -1,10 +1,9 @@
 ---
 ssh: ascross
-runpath: true
 
 package: zsh
 name: Zsh
-version: 5.2.0
+version: 5.2.0-r1
 architecture: ""
 firmware: 2.6.0
 
@@ -14,7 +13,8 @@ config:
     website: "http://www.zsh.org"
     maintainer: "mafredri"
     email: "mafredri+adm@gmail.com"
-    depends: []
+    depends:
+      - ncurses
     conflicts: []
     package: "PACKAGE"
     name: "NAME"
@@ -24,11 +24,14 @@ config:
   register:
     symbolic-link:
       /bin:
-        - "zsh*"
+        - "zsh"
     boot-priority:
       start-order: 1
       stop-order: 99
 
+runpath: /usr/local/AppCentral/zsh/lib:/usr/local/AppCentral/ncurses/lib
+root: /usr/local/AppCentral/zsh
 files:
   - /usr/local/AppCentral/zsh
-  - /lib/libncursesw.so.6*
+exclude:
+  - "*/usr/local/AppCentral/zsh/bin/zsh-*"

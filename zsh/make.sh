@@ -48,16 +48,18 @@ build_arch() {
 		continue
 	fi
 
+	(( ${#config_exclude} )) && exclude+=( "--exclude "$^config_exclude )
+
 	write_pkgversions $ssh_host $prefix "$files" pkgversions/$arch.txt &
 
-	if [[ $config_runpath == True ]]; then
+	if (( ${#config_runpath} )); then
 		log "Updating runpath on remote..."
-		patched_files=$(update_runpath $ssh_host $prefix /usr/local/AppCentral/$config_package/lib "$files")
+		patched_files=$(update_runpath $ssh_host $prefix $config_runpath "$files")
 		log "Patched runpath for: $patched_files"
 	fi
 
 	log "Rsyncing files..."
-	rsync -q -a --relative --delete --exclude '*.py[cdo]' \
+	rsync -q -a --relative --delete ${(s. .)exclude} \
 		$ssh_host:"$files" $build_files/
 
 	if (( $? )); then
@@ -66,8 +68,7 @@ build_arch() {
 	fi
 
 	log "Copying $arch files to $build_apk/$arch..."
-	rsync -a $build_files$prefix/usr/local/AppCentral/$config_package/ $build_apk/$arch/
-	rsync -a $build_files$prefix/lib/ $build_apk/$arch/lib/
+	rsync -a $build_files$prefix${config_root%/}/ $build_apk/$arch/
 
 	config2json $arch > $build_apk/$arch/CONTROL/config.json
 	cp CHANGELOG.md $build_apk/$arch/CONTROL/changelog.txt
