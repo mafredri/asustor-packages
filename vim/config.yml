@@ -1,10 +1,9 @@
 ---
 ssh: ascross
-runpath: true
 
 package: vim
 name: Vim
-version: 7.4.1821
+version: 7.4.1821-r1
 architecture: ""
 firmware: 2.6.0
 
@@ -14,7 +13,8 @@ config:
     website: "http://www.vim.org"
     maintainer: "mafredri"
     email: "mafredri+adm@gmail.com"
-    depends: []
+    depends:
+      - ncurses
     conflicts: []
     package: "PACKAGE"
     name: "NAME"
@@ -32,10 +32,10 @@ config:
       start-order: 1
       stop-order: 99
 
+runpath: /usr/local/AppCentral/ncurses/lib
+root: /usr
 files:
   - /usr/bin/rview
   - /usr/bin/rvim
   - /usr/bin/vim
   - /usr/bin/vimdiff
-  - /lib/libncurses.so*
-
