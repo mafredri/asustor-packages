@@ -13,12 +13,12 @@ cs_create() {
 cs_attach() {
 	local image=$1
 	local target=$2
-	hdiutil attach -mountpoint $target $image
+	hdiutil attach -nobrowse -mountpoint $target $image
 }
 
 cs_detach() {
 	local target=$1
-	hdiutil detach $target
+	hdiutil detach -force $target
 }
 
 cs_compact() {
