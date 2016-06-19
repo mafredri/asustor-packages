@@ -16,10 +16,11 @@ Despite what the above comic suggests, Vim can be configured to work in a very s
 
 ## Tips
 
-I had to add the following to my `.vimrc` to prevent the arrow keys from typing `A`, `B`, `C`, `D` in the editor:
+I had to add the following to my `.vimrc` to prevent the arrow keys from typing `A`, `B`, `C`, `D` in the editor (and to fix the backspace key):
 
 Contents of `$HOME/.vimrc`:
 
 ```vimrc
-set term=xterm
+set term=xterm-256color
+set backspace=2
 ```
