@@ -1,6 +1,5 @@
 ---
 ssh: ascross
-runpath: false
 
 package: coreutils
 name: Coreutils
@@ -29,5 +28,9 @@ config:
       start-order: 1
       stop-order: 99
 
+case_sensitive: false
+runpath:
+root: /usr/local/AppCentral/coreutils
 files:
   - /usr/local/AppCentral/coreutils
+exclude: []

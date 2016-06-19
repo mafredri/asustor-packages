@@ -58,7 +58,7 @@ build_arch() {
 
 	write_pkgversions $ssh_host $prefix "$files" pkgversions/$arch.txt &
 
-	if (( ${#config_runpath} )); then
+	if (( ${#config_runpath} > 5 )) ; then # ignore null / false
 		log "Updating runpath on remote..."
 		patched_files=$(update_runpath $ssh_host $prefix $config_runpath "$files")
 		log "Patched runpath for: $patched_files"

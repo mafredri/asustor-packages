@@ -32,6 +32,7 @@ config:
       start-order: 1
       stop-order: 99
 
+case_sensitive: false
 runpath: /usr/local/AppCentral/ncurses/lib
 root: /usr
 files:

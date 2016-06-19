@@ -29,6 +29,7 @@ config:
       start-order: 1
       stop-order: 99
 
+case_sensitive: false
 runpath: /usr/local/AppCentral/zsh/lib:/usr/local/AppCentral/ncurses/lib
 root: /usr/local/AppCentral/zsh
 files:
