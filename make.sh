@@ -7,8 +7,16 @@ emulate -L zsh
 # Change working directory
 cd -q ${0:A:h}
 
+if ! [[ -d $1 ]]; then
+	print -u2 "please provide make target"
+	exit 1
+fi
+
+cd -q $1
+
 source ../scripts/setup/general-setup.sh
 source ../scripts/setup/parse-setup-yaml.sh ./config.yml config_
+source ../scripts/setup/python-site-packages.sh
 
 ssh_host=$config_ssh
 
