@@ -76,12 +76,10 @@ build_arch() {
 	log "Copying $arch files to $build_apk/$arch..."
 	rsync -a $build_files$prefix${config_root%/}/ $build_apk/$arch/
 
-	log "Creating libexec/gnubin and linking without g prefix"
-	mkdir -p $build_apk/$arch/libexec/gnubin
-	for f in $build_apk/$arch/bin/g*; do
-		fname=${f:t}
-		ln -s ../../bin/${fname} $build_apk/$arch/libexec/gnubin/${fname#g}
-	done
+	# Run pre-build script
+	if [[ -f pre_build.sh ]]; then
+		source pre_build.sh $build_apk/$arch
+	fi
 
 	config2json $arch > $build_apk/$arch/CONTROL/config.json
 	cp CHANGELOG.md $build_apk/$arch/CONTROL/changelog.txt
