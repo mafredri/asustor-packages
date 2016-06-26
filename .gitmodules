@@ -1,3 +1,6 @@
 [submodule "deluge"]
 	path = deluge
 	url = git@github.com:mafredri/deluge-apkg
+[submodule "sonarr"]
+	path = sonarr
+	url = git@github.com:mafredri/sonarr-apkg
