@@ -18,6 +18,10 @@ fi
 make_package() {
 	cd -q $1
 
+	if [[ -f pre_setup.sh ]]; then
+		source pre_setup.sh
+	fi
+
 	source ../scripts/setup/parse-setup-yaml.sh ./config.yml config_
 
 	ssh_host=$config_ssh
@@ -59,6 +63,10 @@ make_package() {
 		typeset -a files exclude
 
 		(( ${#config_files} )) && files+=( $prefix$^config_files )
+		(( ${#config_site_packages} )) && {
+			python_site_packages=( $(get_site_packages $ssh_host $prefix "$config_site_packages") )
+			files+=( $prefix$^python_site_packages )
+		}
 
 		if (( ! ${#files} )); then
 			log "No files found? Aborting..."
