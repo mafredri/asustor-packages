@@ -4,3 +4,6 @@
 [submodule "sonarr"]
 	path = sonarr
 	url = git@github.com:mafredri/sonarr-apkg
+[submodule "qbittorrent"]
+	path = qbittorrent
+	url = git@github.com:mafredri/qbittorrent-apkg
