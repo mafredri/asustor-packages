@@ -1,0 +1,3 @@
+[submodule "deluge"]
+	path = deluge
+	url = git@github.com:mafredri/deluge-apkg
