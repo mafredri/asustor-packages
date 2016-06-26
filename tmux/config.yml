@@ -3,7 +3,7 @@ ssh: ascross
 
 package: tmux
 name: tmux
-version: 2.1.0
+version: 2.2.0
 architecture: ""
 firmware: 2.6.0
 
@@ -27,7 +27,7 @@ config:
         - "tmux"
     boot-priority:
       start-order: 1
-      stop-order: 99
+      stop-order: 1
 
 case_sensitive: false
 runpath: /usr/local/AppCentral/tmux/lib:/usr/local/AppCentral/ncurses/lib
@@ -35,4 +35,3 @@ root: /usr
 files:
   - /usr/bin/tmux
   - /usr/lib/libevent-2.1.so*
-  - /usr/lib/libutempter.so*
