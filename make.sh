@@ -68,6 +68,16 @@ make_package() {
 			files+=( $prefix$^python_site_packages )
 		}
 
+		if [[ $config_updated_libstdcpp == True ]] && [[ $arch != arm ]]; then
+			# App requires an updated version of libstdc++ so we pull it in as
+			# an extra. The ARM already supports libstdc++ from GCC 4.8 so we
+			# skip it.
+			gcc_path=/usr/lib/gcc/${prefix:t}/4.9.3
+			files+=( "$prefix$gcc_path/libstdc++.so*" )
+
+			config_runpath=$config_runpath:/usr/local/AppCentral/$config_package${gcc_path#$config_root}
+		fi
+
 		if (( ! ${#files} )); then
 			log "No files found? Aborting..."
 			continue
