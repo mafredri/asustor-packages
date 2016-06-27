@@ -1,9 +1,9 @@
 [submodule "deluge"]
 	path = deluge
-	url = git@github.com:mafredri/deluge-apkg
+	url = git@github.com:mafredri/asustor-deluge
 [submodule "sonarr"]
 	path = sonarr
-	url = git@github.com:mafredri/sonarr-apkg
+	url = git@github.com:mafredri/asustor-sonarr
 [submodule "qbittorrent"]
 	path = qbittorrent
-	url = git@github.com:mafredri/qbittorrent-apkg
+	url = git@github.com:mafredri/asustor-qbittorrent
