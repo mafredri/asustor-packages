@@ -7,3 +7,6 @@
 [submodule "qbittorrent"]
 	path = qbittorrent
 	url = git@github.com:mafredri/asustor-qbittorrent
+[submodule "rtorrent"]
+	path = rtorrent
+	url = git@github.com:mafredri/asustor-rtorrent
