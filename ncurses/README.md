@@ -12,4 +12,7 @@ If you wish to use this version of ncurses instead of the built-in busybox versi
 
 ```
 export PATH=/usr/local/AppCentral/ncurses/usr/bin:$PATH
+export TERMINFO=/usr/local/AppCentral/ncurses/usr/share/terminfo
 ```
+
+PS. The `TERMINFO` export is not necessary if you're using Zsh.
