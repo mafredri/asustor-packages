@@ -1,0 +1,2 @@
+# Make sure we use terminfo from the ncurses package.
+export TERMINFO=/usr/local/AppCentral/ncurses/usr/share/terminfo
