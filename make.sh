@@ -62,48 +62,50 @@ make_package() {
 
 		typeset -a files exclude
 
-		(( ${#config_files} )) && files+=( $prefix$^config_files )
-		(( ${#config_site_packages} )) && {
-			python_site_packages=( $(get_site_packages $ssh_host $prefix "$config_site_packages") )
-			files+=( $prefix$^python_site_packages )
-		}
+		if (( ${#config_files} )) || (( ${#config_site_packages} )); then
+			(( ${#config_files} )) && files+=( $prefix$^config_files )
+			(( ${#config_site_packages} )) && {
+				python_site_packages=( $(get_site_packages $ssh_host $prefix "$config_site_packages") )
+				files+=( $prefix$^python_site_packages )
+			}
 
-		if [[ $config_updated_libstdcpp == True ]] && [[ $arch != arm ]]; then
-			# App requires an updated version of libstdc++ so we pull it in as
-			# an extra. The ARM already supports libstdc++ from GCC 4.8 so we
-			# skip it.
-			gcc_path=/usr/lib/gcc/${prefix:t}/4.9.3
-			files+=( "$prefix$gcc_path/libstdc++.so*" )
+			if [[ $config_updated_libstdcpp == True ]] && [[ $arch != arm ]]; then
+				# App requires an updated version of libstdc++ so we pull it in as
+				# an extra. The ARM already supports libstdc++ from GCC 4.8 so we
+				# skip it.
+				gcc_path=/usr/lib/gcc/${prefix:t}/4.9.3
+				files+=( "$prefix$gcc_path/libstdc++.so*" )
 
-			config_runpath=$config_runpath:/usr/local/AppCentral/$config_package${gcc_path#$config_root}
+				config_runpath=$config_runpath:/usr/local/AppCentral/$config_package${gcc_path#$config_root}
+			fi
+
+			if (( ! ${#files} )); then
+				log "No files found? Aborting..."
+				continue
+			fi
+
+			(( ${#config_exclude} )) && exclude+=( "--exclude "$^config_exclude )
+
+			write_pkgversions $ssh_host $prefix "$files" pkgversions/$arch.txt &
+
+			if (( ${#config_runpath} > 1 )) ; then # ignore null / false
+				log "Updating runpath on remote..."
+				patched_files=$(update_runpath $ssh_host $prefix $config_runpath "$files")
+				log "Patched runpath for: $patched_files"
+			fi
+
+			log "Rsyncing files..."
+			rsync -q -a --relative --delete ${(s. .)exclude} \
+				$ssh_host:"$files" $build_files/
+
+			if (( $? )); then
+				log "Failed fetching files for $arch"
+				continue
+			fi
+
+			log "Copying $arch files to $build_apk/$arch..."
+			rsync -a $build_files$prefix${config_root%/}/ $build_apk/$arch/
 		fi
-
-		if (( ! ${#files} )); then
-			log "No files found? Aborting..."
-			continue
-		fi
-
-		(( ${#config_exclude} )) && exclude+=( "--exclude "$^config_exclude )
-
-		write_pkgversions $ssh_host $prefix "$files" pkgversions/$arch.txt &
-
-		if (( ${#config_runpath} > 5 )) ; then # ignore null / false
-			log "Updating runpath on remote..."
-			patched_files=$(update_runpath $ssh_host $prefix $config_runpath "$files")
-			log "Patched runpath for: $patched_files"
-		fi
-
-		log "Rsyncing files..."
-		rsync -q -a --relative --delete ${(s. .)exclude} \
-			$ssh_host:"$files" $build_files/
-
-		if (( $? )); then
-			log "Failed fetching files for $arch"
-			continue
-		fi
-
-		log "Copying $arch files to $build_apk/$arch..."
-		rsync -a $build_files$prefix${config_root%/}/ $build_apk/$arch/
 
 		# Run pre-build script
 		if [[ -f pre_build.sh ]]; then
@@ -121,9 +123,13 @@ make_package() {
 		wait
 	}
 
-	for arch prefix in ${(kv)adm_arch}; do
-		build_arch $arch $prefix &
-	done
+	if (( $#config_architecture > 1 )); then
+		build_arch $config_architecture $adm_arch[$config_architecture]
+	else
+		for arch prefix in ${(kv)adm_arch}; do
+			build_arch $arch $prefix &
+		done
+	fi
 
 	wait
 

@@ -27,6 +27,18 @@ for key in $(yaml keys); do
 	fi
 
 	case $(yaml get-type $key) in
+		NoneType)
+			;;  # Not set
+		bool)
+			typeset -g "$conf_prefix$key"
+			local val=$(yaml get-value $key)
+			if [[ $val = True ]]; then
+				val=1
+			else
+				val=0
+			fi
+			typeset "$conf_prefix$key"="$val"
+			;;
 		sequence)
 			typeset -g -a "$conf_prefix$key"
 			eval "$conf_prefix$key=( \$(yaml get-values \$key) )"
