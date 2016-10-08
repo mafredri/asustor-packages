@@ -10,3 +10,6 @@
 [submodule "rtorrent"]
 	path = rtorrent
 	url = git@github.com:mafredri/asustor-rtorrent
+[submodule "jackett"]
+	path = jackett
+	url = git@github.com:mafredri/asustor-jackett
