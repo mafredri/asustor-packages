@@ -13,3 +13,6 @@
 [submodule "jackett"]
 	path = jackett
 	url = git@github.com:mafredri/asustor-jackett
+[submodule "libcec"]
+	path = libcec
+	url = git@github.com:mafredri/asustor-libcec
