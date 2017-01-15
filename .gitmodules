@@ -16,3 +16,6 @@
 [submodule "libcec"]
 	path = libcec
 	url = git@github.com:mafredri/asustor-libcec
+[submodule "radarr"]
+	path = radarr
+	url = https://github.com/mafredri/asustor-radarr
