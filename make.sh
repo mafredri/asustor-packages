@@ -10,6 +10,23 @@ cd -q ${0:A:h}
 source scripts/setup/general-setup.sh
 source scripts/setup/python-site-packages.sh
 
+typeset -a ARCH
+
+typeset -a arch
+zparseopts -E -D \
+	a+:=arch arch+:=arch -arch+:=arch
+
+for key val in $arch; do
+	ARCH+=($val)
+done
+unset arch
+
+typeset -A SSH_HOSTS=(
+	x86-64	ascross
+	i386	ascross
+	arm		mushi
+)
+
 if ! [[ -d $1 ]] && [[ $1 != all ]]; then
 	print -u2 "please provide make target"
 	exit 1
@@ -23,8 +40,6 @@ make_package() {
 	fi
 
 	source ../scripts/setup/parse-setup-yaml.sh ./config.yml config_
-
-	ssh_host=$config_ssh
 
 	dist_dir=dist
 	build_dir=build
@@ -46,6 +61,7 @@ make_package() {
 	build_arch() {
 		local arch=$1
 		local prefix=$2
+		local ssh_host=$SSH_HOSTS[$arch]
 		log() {
 			local len=$(( ${#config_package} + 8 + 2))
 			printf "%${len}s: $@\n" "${arch}(${config_package})"
@@ -69,7 +85,7 @@ make_package() {
 				files+=( $prefix$^python_site_packages )
 			}
 
-			if [[ $config_updated_libstdcpp == True ]] && [[ $arch != arm ]]; then
+			if [[ $config_updated_libstdcpp == 1 ]] && [[ $arch != arm ]]; then
 				# App requires an updated version of libstdc++ so we pull it in as
 				# an extra. The ARM already supports libstdc++ from GCC 4.8 so we
 				# skip it.
@@ -77,6 +93,7 @@ make_package() {
 				files+=( "$prefix$gcc_path/libstdc++.so*" )
 
 				config_runpath=$config_runpath:/usr/local/AppCentral/$config_package${gcc_path#$config_root}
+				typeset -p config_runpath
 			fi
 
 			if (( ! ${#files} )); then
@@ -104,7 +121,7 @@ make_package() {
 			fi
 
 			log "Copying $arch files to $build_apk/$arch..."
-			rsync -a $build_files$prefix${config_root%/}/ $build_apk/$arch/
+			rsync -a $build_files/${prefix#\/}${config_root%/}/ $build_apk/$arch/
 		fi
 
 		# Run pre-build script
@@ -125,6 +142,10 @@ make_package() {
 
 	if (( $#config_architecture > 1 )); then
 		build_arch $config_architecture $adm_arch[$config_architecture]
+	elif (( $#ARCH )); then
+		for arch in $ARCH; do
+			build_arch $arch $adm_arch[$arch]
+		done
 	else
 		for arch prefix in ${(kv)adm_arch}; do
 			build_arch $arch $prefix &

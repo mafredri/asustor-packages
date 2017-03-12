@@ -13,7 +13,7 @@ sudo echo -n
 typeset -g -A adm_arch=(
 	x86-64 	/cross/x86_64-asustor-linux-gnu
 	i386 	/cross/i686-asustor-linux-gnu
-	arm 	/cross/armv7a-hardfloat-linux-gnueabi
+	arm 	ascross/armv7a-hardfloat-linux-gnueabi
 )
 
 typeset -a modified_permissions
@@ -49,7 +49,11 @@ write_pkgversions() {
 	fi
 
 	local versions
-	versions="$(ssh_exec $remote ROOT=$prefix equery b ${remote_files#$prefix} | sort | uniq)"
+	if [[ $remote == mushi ]]; then
+		versions="$(ssh_exec $remote fakeroot fakechroot /usr/sbin/chroot $prefix equery b ${remote_files#$prefix} | sort | uniq)"
+	else
+		versions="$(ssh_exec $remote ROOT=$prefix equery b ${remote_files#$prefix} | sort | uniq)"
+	fi
 	if (( $? )); then
 		print "Failed writing $target"
 		return 1
