@@ -38,6 +38,7 @@ write_pkgversions() {
 	local prefix=$2
 	local -a files=( $3 )
 	local target=$4
+	local eprefix=$5
 
 	remote_files=( ${(@n)$(ssh_exec $ssh_host ls -d $files)} )
 	if (( ! ${#remote_files} )); then
@@ -46,7 +47,7 @@ write_pkgversions() {
 	fi
 
 	local versions
-	versions="$(ssh_exec $remote ROOT=$prefix equery b ${remote_files#$prefix} | sort | uniq)"
+	versions="$(ssh_exec $remote ROOT=$prefix$eprefix equery b ${remote_files#$prefix} | sort | uniq)"
 	if (( $? )); then
 		print "Failed writing $target"
 		return 1
