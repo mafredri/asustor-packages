@@ -19,3 +19,6 @@
 [submodule "radarr"]
 	path = radarr
 	url = https://github.com/mafredri/asustor-radarr
+[submodule "go"]
+	path = go
+	url = git@github.com:mafredri/asustor-go
