@@ -1,2 +1,3 @@
-app-misc/tmux-2.2
-dev-libs/libevent-2.1.5-r4
+app-misc/tmux-2.5-r1
+dev-libs/libevent-2.1.8
+sys-libs/ncurses-6.0-r1

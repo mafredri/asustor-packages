@@ -1,3 +1,7 @@
+2.5.0:
+* Update tmux
+* Remove ncurses dependency
+
 2.2.0:
 * Update tmux
 * Remove libutempter dependency
