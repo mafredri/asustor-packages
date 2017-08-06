@@ -7,13 +7,10 @@ if (( ! ${+commands[apkg-tools.py]})); then
 	exit 1
 fi
 
-print "Requesting sudo for build session..."
-sudo echo -n
-
 typeset -g -A adm_arch=(
 	x86-64 	/cross/x86_64-asustor-linux-gnu
 	i386 	/cross/i686-asustor-linux-gnu
-	arm 	ascross/armv7a-hardfloat-linux-gnueabi
+	arm 	/cross/armv7a-hardfloat-linux-gnueabi
 )
 
 typeset -a modified_permissions
@@ -49,11 +46,7 @@ write_pkgversions() {
 	fi
 
 	local versions
-	if [[ $remote == mushi ]]; then
-		versions="$(ssh_exec $remote fakeroot fakechroot /usr/sbin/chroot $prefix equery b ${remote_files#$prefix} | sort | uniq)"
-	else
-		versions="$(ssh_exec $remote ROOT=$prefix equery b ${remote_files#$prefix} | sort | uniq)"
-	fi
+	versions="$(ssh_exec $remote ROOT=$prefix equery b ${remote_files#$prefix} | sort | uniq)"
 	if (( $? )); then
 		print "Failed writing $target"
 		return 1

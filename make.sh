@@ -7,6 +7,7 @@ emulate -L zsh
 # Change working directory
 cd -q ${0:A:h}
 
+source .environment
 source scripts/setup/general-setup.sh
 source scripts/setup/python-site-packages.sh
 
@@ -24,12 +25,25 @@ unset arch
 typeset -A SSH_HOSTS=(
 	x86-64	ascross
 	i386	ascross
-	arm		mushi
+	arm	ascross-arm
 )
 
-if ! [[ -d $1 ]] && [[ $1 != all ]]; then
+if ! [[ -d $1 ]] && [[ $1 != all ]] && [[ $1 != upload ]]; then
 	print -u2 "please provide make target"
 	exit 1
+fi
+
+if [[ $1 == upload ]]; then
+	shift
+	apks=()
+	for pkg in $@; do
+		source scripts/setup/parse-setup-yaml.sh $pkg/config.yml config_
+		apks+=($pkg/dist/*${config_version}*)
+	done
+	print "Uploading packages: $apks"
+	args=("-apk "${^apks})
+	asdev ${=args}
+	exit $?
 fi
 
 make_package() {
@@ -45,7 +59,7 @@ make_package() {
 	build_dir=build
 	mkdir -p $dist_dir $build_dir
 
-	if [[ $config_case_sensitive == True ]]; then
+	if [[ $config_case_sensitive == 1 ]]; then
 		source ../scripts/case_sensitive.sh
 		cs_create build.dmg.sparseimage ${config_package}_build
 		cs_attach build.dmg.sparseimage $build_dir
@@ -93,7 +107,6 @@ make_package() {
 				files+=( "$prefix$gcc_path/libstdc++.so*" )
 
 				config_runpath=$config_runpath:/usr/local/AppCentral/$config_package${gcc_path#$config_root}
-				typeset -p config_runpath
 			fi
 
 			if (( ! ${#files} )); then
@@ -154,11 +167,14 @@ make_package() {
 
 	wait
 
-	if [[ $config_case_sensitive == True ]]; then
+	if [[ $config_case_sensitive == 1 ]]; then
 		cs_detach $build_dir
 		cs_compact build.dmg.sparseimage
 	fi
 }
+
+print "Requesting sudo for build session..."
+sudo echo -n
 
 if [[ $1 == all ]]; then
 	for i in */config.yml; do
@@ -166,7 +182,11 @@ if [[ $1 == all ]]; then
 	done
 	wait
 else
-	make_package $1
+	for pkg in $@; do
+		make_package $pkg &
+	done
+	wait
 fi
 
 print "\nThank you, come again!"
+
