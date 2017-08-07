@@ -28,21 +28,20 @@ typeset -A SSH_HOSTS=(
 	arm	ascross-arm
 )
 
-if ! [[ -d $1 ]] && [[ $1 != all ]] && [[ $1 != upload ]]; then
+if ! [[ -d $1 ]] && [[ $1 != all ]] && [[ $1 != update ]]; then
 	print -u2 "please provide make target"
 	exit 1
 fi
 
-if [[ $1 == upload ]]; then
+if [[ $1 == update ]]; then
 	shift
 	apks=()
 	for pkg in $@; do
 		source scripts/setup/parse-setup-yaml.sh $pkg/config.yml config_
 		apks+=($pkg/dist/*${config_version}*)
 	done
-	print "Uploading packages: $apks"
-	args=("-apk "${^apks})
-	asdev ${=args}
+	print "Updating packages: $apks"
+	asdev update ${=apks}
 	exit $?
 fi
 
