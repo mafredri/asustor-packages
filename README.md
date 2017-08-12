@@ -7,7 +7,7 @@ Download: [Package directory](https://app.box.com/s/nw45lg0w0y5jzh1529gkqs52j1hc
 ## Error code table (for app developers)
 
 | Code | Possible conditions |
-| ---: | ------------------- |
+| ---: | :------------------ |
 | -192 | unsupported APK format or the APK is corrupted. |
 |   -2 | config.json file not file is not exist or corrupted. |
 |  -61 | config.json file not file is not exist or corrupted. |
