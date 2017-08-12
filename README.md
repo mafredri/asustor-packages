@@ -9,8 +9,8 @@ Download: [Package directory](https://app.box.com/s/nw45lg0w0y5jzh1529gkqs52j1hc
 | Code | Possible conditions |
 | ---: | :------------------ |
 | -192 | Unsupported APK format or the APK is corrupt |
-|   -2 | `config.json` file not file is not exist or corrupted |
-|  -61 | `config.json` file not file is not exist or corrupted |
+|   -2 | `config.json` is missing or corrupt |
+|  -61 | `config.json` is missing or corrupt |
 | -423 | This APK architecture is not supported on this NAS |
 | -424 | This APK version is too old |
 | -184 | The ADM version is too old for this APK |
