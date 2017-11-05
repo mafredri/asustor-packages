@@ -3,7 +3,7 @@ ssh: ascross
 
 package: vim
 name: Vim
-version: 7.4.1821-r1
+version: 8.0.1056
 architecture: ""
 firmware: 2.6.0
 
