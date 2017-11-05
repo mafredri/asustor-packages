@@ -19,7 +19,7 @@ start_daemon() {
 	"${PKG_DIR}/CONTROL/utp-fix.sh"
 
 	# Allow transmission to manage the pidfile.
-	touch $PIDFILE; chown admin $PIDFILE
+	touch $PIDFILE; chown $USER $PIDFILE
 
 	start-stop-daemon -S --quiet --chuid $USER:$GROUP --user $USER --exec $DAEMON -- \
 		--pid-file $PIDFILE --config-dir "${PKG_DIR}"/config $DAEMON_ARGS
