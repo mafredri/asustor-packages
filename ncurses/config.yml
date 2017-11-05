@@ -28,6 +28,7 @@ config:
 case_sensitive: true
 runpath: /usr/local/AppCentral/ncurses/lib:/usr/local/AppCentral/ncurses/usr/lib
 root: /usr/local/AppCentral/ncurses
+eprefix: /usr/local/AppCentral/ncurses
 files:
   - /usr/local/AppCentral/ncurses/etc/terminfo
   - /usr/local/AppCentral/ncurses/lib*

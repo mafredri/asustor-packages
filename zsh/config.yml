@@ -1,9 +1,7 @@
 ---
-ssh: ascross
-
 package: zsh
 name: Zsh
-version: 5.2.0-r2
+version: 5.4.2
 architecture: ""
 firmware: 2.6.0
 

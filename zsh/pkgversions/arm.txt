@@ -1,1 +1,1 @@
-asustor/zsh-5.2
+asustor/zsh-5.4.2
