@@ -1,0 +1,5 @@
+dev-libs/libevent-2.1.8
+net-libs/libnatpmp-20150609
+net-libs/miniupnpc-2.0.20170509
+net-misc/curl-7.55.1
+net-p2p/transmission-2.92-r2

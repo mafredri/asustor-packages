@@ -1,0 +1,54 @@
+---
+ssh: ascross
+
+package: transmission
+name: Transmission
+version: 2.92.1
+architecture: ""
+firmware: 2.6.0
+
+config:
+  general:
+    developer: "Transmission Project"
+    website: "https://www.transmissionbt.com"
+    maintainer: "mafredri"
+    email: "mafredri+adm@gmail.com"
+    depends: []
+    conflicts: []
+    package: "PACKAGE"
+    name: "NAME"
+    version: "VERSION"
+    architecture: "ARCHITECTURE"
+    firmware: "FIRMWARE"
+  adm-desktop:
+    app:
+      port: 9091
+      protocol: http
+      type: custom
+      url: /
+    privilege:
+      accessible: users
+      customizable: true
+  register:
+    symbolic-link:
+      /bin:
+        - "transmission*"
+      /share:
+        - "transmission"
+    boot-priority:
+      start-order: 20
+      stop-order: 80
+    port:
+      - 9091
+
+case_sensitive: false
+runpath: /usr/local/AppCentral/transmission/lib
+updated_libstdcpp: false
+root: /usr
+files:
+  - /usr/bin/transmission*
+  - /usr/share/transmission
+  - /usr/lib/libnatpmp.so*
+  - /usr/lib/libminiupnpc.so*
+  - /usr/lib/libevent-*.so*
+  - /usr/lib/libcurl.so*

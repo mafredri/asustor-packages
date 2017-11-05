@@ -1,0 +1,21 @@
+{
+    "bind-address-ipv4": "0.0.0.0",
+    "bind-address-ipv6": "::",
+    "cache-size-mb": 4,
+    "download-dir": "/volume1/Download",
+    "incomplete-dir": "/volume1/Download",
+    "incomplete-dir-enabled": false,
+    "message-level": 2,
+    "preallocation": 2,
+    "prefetch-enabled": 1,
+    "rpc-authentication-required": false,
+    "rpc-bind-address": "0.0.0.0",
+    "rpc-enabled": true,
+    "rpc-password": "admin",
+    "rpc-port": 9091,
+    "rpc-url": "/transmission/",
+    "rpc-username": "admin",
+    "rpc-whitelist": "127.0.0.1",
+    "rpc-whitelist-enabled": false,
+    "umask": 0
+}
