@@ -115,6 +115,7 @@ make_package() {
 
 			(( ${#config_exclude} )) && exclude+=( "--exclude "$^config_exclude )
 
+			[[ -d pkgversions ]] || mkdir pkgversions &>/dev/null
 			write_pkgversions $ssh_host $prefix "$files" pkgversions/$arch.txt $config_eprefix &
 
 			if (( ${#config_runpath} > 1 )) ; then # ignore null / false
