@@ -3,7 +3,7 @@ ssh: ascross
 
 package: tmux
 name: tmux
-version: 2.5.0
+version: 2.6.0
 architecture: ""
 firmware: 2.6.0
 

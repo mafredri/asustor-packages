@@ -1,3 +1,6 @@
+2.6.0:
+* Update tmux
+
 2.5.0:
 * Update tmux
 * Remove ncurses dependency
