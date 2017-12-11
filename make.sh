@@ -7,7 +7,7 @@ emulate -L zsh
 # Change working directory
 cd -q ${0:A:h}
 
-source .environment
+source .envrc
 source scripts/setup/general-setup.sh
 source scripts/setup/python-site-packages.sh
 

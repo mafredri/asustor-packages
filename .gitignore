@@ -3,5 +3,5 @@
 */build/
 .vscode/
 **/*.sparseimage
-.environment
+.envrc
 
