@@ -1,3 +1,6 @@
+2.92.2:
+- Security update: mitigate dns rebinding attacks against daemon. See: https://github.com/transmission/transmission/pull/468
+
 2.92:
 - Add support for ADM 3.0
 

@@ -3,7 +3,7 @@ ssh: ascross
 
 package: transmission
 name: Transmission
-version: 2.92.1
+version: 2.92.2
 architecture: ""
 firmware: 2.6.0
 
