@@ -15,6 +15,8 @@ typeset -g -A adm_arch=(
 
 typeset -a modified_permissions
 build_apk() {
+	setopt localoptions localtraps
+
 	local from=$1
 	local to=$2
 
@@ -22,10 +24,11 @@ build_apk() {
 	modified_permissions+=( $from )
 
 	# APKs require root privileges, make sure priviliges are correct
+	trap 'sudo chown -R $USER $from; sudo chown -R $USER $to; exit 1' INT TERM
 	sudo chown -R 0:0 $from
 	sudo apkg-tools.py create $from --destination $to/
-	sudo chown -R "$(whoami)" $to
-	sudo chown -R "$(whoami)" $from
+	sudo chown -R $USER $to
+	sudo chown -R $USER $from
 }
 
 ssh_exec() {
