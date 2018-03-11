@@ -102,10 +102,14 @@ make_package() {
 				# App requires an updated version of libstdc++ so we pull it in as
 				# an extra. The ARM already supports libstdc++ from GCC 4.8 so we
 				# skip it.
-				gcc_path=/usr/lib/gcc/${prefix:t}/4.9.3
+				gcc_path=/usr/lib/gcc/${prefix:t}/4.9.4
 				files+=( "$prefix$gcc_path/libstdc++.so*" )
 
-				config_runpath=$config_runpath:/usr/local/AppCentral/$config_package${gcc_path#$config_root}
+				local remove_root=$config_root
+				if [[ $remove_root = / ]]; then
+					remove_root=''
+				fi
+				config_runpath=$config_runpath:/usr/local/AppCentral/$config_package${gcc_path#$remove_root}
 			fi
 
 			if (( ! ${#files} )); then
