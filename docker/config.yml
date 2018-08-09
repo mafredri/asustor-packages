@@ -1,0 +1,60 @@
+---
+ssh: ascross
+
+package: docker-ce
+name: Docker Community Edition
+version: 18.01.0
+architecture: ""
+firmware: 3.0.0
+
+config:
+  general:
+    developer: "Docker Inc"
+    website: "https://docker.com/community-edition"
+    maintainer: "mafredri"
+    email: "mafredri+adm@gmail.com"
+    depends: []
+    conflicts: []
+    package: "PACKAGE"
+    name: "NAME"
+    version: "VERSION"
+    architecture: "ARCHITECTURE"
+    firmware: "FIRMWARE"
+  register:
+    symbolic-link:
+      /bin:
+        - "*"
+    boot-priority:
+      start-order: 1
+      stop-order: 99
+
+case_sensitive: false
+runpath: /usr/local/AppCentral/docker-ce/usr/lib
+updated_libstdcpp: true
+eprefix:
+root: /
+files:
+  - /usr/bin/tini
+  - /usr/bin/containerd*
+  - /usr/bin/ctr
+  - /usr/bin/runc
+  - /usr/bin/docker*
+  #- /usr/share/bash-completion/completions/docker
+  - /usr/share/docker
+  #- /usr/share/vim/vimfiles/ftdetect/dockerfile.vim
+  #- /usr/share/vim/vimfiles/syntax/dockerfile.vim
+  #- /usr/share/zsh/site-functions/_docker
+  # btrfs-progs
+  - /sbin/btrfs*
+  - /sbin/*.btrfs
+  - /usr/lib/libbtrfs.so*
+  # libseccomp
+  #- /usr/bin/scmp_sys_resolver
+  - /usr/lib/libseccomp.so*
+  # libapparmor
+  - /usr/lib/libapparmor.so*
+  # Missing modules
+  # - /usr/src/linux/net/netfilter/nf_conntrack_netlink.ko
+  # - /usr/src/linux/net/bridge/br_netfilter.ko
+  # - /usr/src/linux/net/netfilter/nfnetlink.ko
+exclude:

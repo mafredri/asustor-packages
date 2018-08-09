@@ -1,0 +1,10 @@
+#!/bin/sh
+
+[[ $1 = "-va" ]] && shift
+
+for mod in "$@"; do
+	modprobe $mod
+	lsmod | grep -q "^${mod} " || insmod /lib/modules/$(uname -r)/${mod}.ko
+done
+
+exit 0
