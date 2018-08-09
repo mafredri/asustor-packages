@@ -1,0 +1,47 @@
+---
+ssh: ascross
+
+package: lidarr
+name: Lidarr
+version: 1.0.0
+architecture:
+firmware: 2.6.0
+
+config:
+  general:
+    developer: "Lidarr"
+    website: "https://github.com/Lidarr/Lidarr"
+    maintainer: "mafredri"
+    email: "mafredri+adm@gmail.com"
+    depends:
+      - mono
+    package: "PACKAGE"
+    name: "NAME"
+    version: "VERSION"
+    architecture: "ARCHITECTURE"
+    firmware: "FIRMWARE"
+  adm-desktop:
+    app:
+      port: 8686
+      protocol: http
+      type: custom
+      url: /
+    privilege:
+      accessible: users
+      customizable: true
+  register:
+    boot-priority:
+      start-order: 60
+      stop-order: 60
+    port:
+      - 8686
+
+case_sensitive: false
+runpath: /usr/local/AppCentral/lidarr/lib
+root: /usr
+files:
+  - /usr/bin/sqlite3
+  - /usr/lib/libtinyxml2.so*
+  - /usr/lib/libzen.so*
+  - /usr/lib/libmediainfo.so*
+  - /usr/lib/libsqlite3.so*

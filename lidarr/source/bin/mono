@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Store path to global mono
+MONO=/usr/local/bin/mono
+
+. /usr/local/AppCentral/lidarr/CONTROL/env.sh
+
+export PATH=${PKG_BIN_PATH}:${PATH}
+# Workaround, shadow mono and allways apply "--data" because doing a restart
+# through the WebUI erases the parameter
+RESTART_TRIGGERED=${*#*--restart}
+if [ "$*" != "$RESTART_TRIGGERED" ]; then
+    DATA="--data=$PKG_CONF"
+fi
+
+$MONO "$@" "$DATA"
